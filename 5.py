@@ -1,5 +1,7 @@
 from sense_hat import SenseHat
+from random import randint
 import random
+from time import sleep
 
 sense = SenseHat() 
 
