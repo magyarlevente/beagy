@@ -26,7 +26,7 @@ def update_space(x, y, colour):
 
 def left(event):
     if event.action == 'pressed':
-        if basket[0] – 1 == 0:
+        if basket[0] - 1 == 0:
             pass
         else:
             update_space(basket[0], basket[1], w)
