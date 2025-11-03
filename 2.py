@@ -4,20 +4,21 @@ from time import sleep
 
 sense = SenseHat()
 speed = 0.4
-basket = [7,4]
+basket = [7, 4]
+score = 0
 
-w = (0,0,0)
-r = (255,0,0)
-b = (0,0,255)
+w = (0, 0, 0)
+r = (255, 0, 0)
+b = (0, 0, 255)
 
-game_space =  [w,w,w,w,w,w,w,w,
-               w,w,w,w,w,w,w,w,
-               w,w,w,w,w,w,w,w,
-               w,w,w,w,w,w,w,w,
-               w,w,w,w,w,w,w,w,
-               w,w,w,w,w,w,w,w,
-               w,w,w,w,w,w,w,w,
-               w,w,w,b,b,w,w,w]
+game_space = [w, w, w, w, w, w, w, w,
+              w, w, w, w, w, w, w, w,
+              w, w, w, w, w, w, w, w,
+              w, w, w, w, w, w, w, w,
+              w, w, w, w, w, w, w, w,
+              w, w, w, w, w, w, w, w,
+              w, w, w, w, w, w, w, w,
+              w, w, w, b, b, w, w, w]
 
 def update_space(x, y, colour):
     p = 8 * x + y
@@ -26,17 +27,15 @@ def update_space(x, y, colour):
 
 def left(event):
     if event.action == 'pressed':
-        if basket[0] - 1 == 0:
-            pass
-        else:
+        if basket[1] > 0:
             update_space(basket[0], basket[1], w)
             basket[1] -= 1
-            update_space(basket[0], basket[1] - 1, b)
+            update_space(basket[0], basket[1], b)
+
 def right(event):
     if event.action == 'pressed':
-        if basket[1] + 1 == 8: pass
-        else:
-            update_space(basket[0], basket[1] - 1, w)
+        if basket[1] < 7:
+            update_space(basket[0], basket[1], w)
             basket[1] += 1
             update_space(basket[0], basket[1], b)
 
@@ -49,14 +48,14 @@ game_alive = True
 
 while game_alive:
     x = 0
-    y = random.randint(0,7)
-    d = random.choice([-1,1])
+    y = random.randint(0, 7)
+    d = random.choice([-1, 1])
     update_space(x, y, r)
     while True:
         sleep(speed)
         update_space(x, y, w)
         if x == 7:
-            if y == basket[1] – 1 or y == basket[1]:
+            if y == basket[1] - 1 or y == basket[1]:
                 update_space(x, y, b)
                 score += 1
                 break
